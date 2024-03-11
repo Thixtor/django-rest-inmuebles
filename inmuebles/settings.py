@@ -12,24 +12,22 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
-import os
-import dj_database_url
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-#BASE_DIR = Path(__file__).resolve().parent.parent
-BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+BASE_DIR = Path(__file__).resolve().parent.parent
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = os.environ.get('SECRET_KEY')
+SECRET_KEY = 'django-insecure-wm@206z2*r*r_6hg3+$1t(yjqfqcp0*p3x(du*2bwie3assog9'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = os.environ.get("DEBUG", "False").lower() == "true"
+DEBUG = True
 
-ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+ALLOWED_HOSTS = []
 
 
 # Application definition
@@ -56,7 +54,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'inmuebles.urls'
@@ -92,20 +89,6 @@ DATABASES = {
     }
 }
 
-database_url = os.environ.get('DATABASES_URL')
-DATABASES['default'] = dj_database_url.parse(database_url)
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'USER' : 'django_rest_inmuebles_user',
-#         'NAME': 'django_rest_inmuebles',
-#         'PASSWORD' : 'XpZDFo3w9LXWRnKqKPYD0VP8GUeWAs5I',
-#         'HOST' : 'dpg-cnnmmv6ct0pc73esh250-a.oregon-postgres.render.com',
-        
-#     }
-# }
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -143,9 +126,7 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
-STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
 STATIC_URL = '/static/'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
@@ -155,13 +136,13 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # REST_FRAMEWORK = {
 #     'DEFAULT_PERMISSION_CLASSES': [
 #         'rest_framework.permissions.IsAuthenticated',
-#     ]
+#     ],
 # }
 
 REST_FRAMEWORK = {
     # 'DEFAULT_AUTHENTICATION_CLASSES': [
     #     'rest_framework.authentication.BasicAuthentication',
-        
+    # ]
     'DEFAULT_AUTHENTICATION_CLASSES': [
         #'rest_framework.authentication.TokenAuthentication',
         'rest_framework_simplejwt.authentication.JWTAuthentication',
@@ -173,27 +154,16 @@ REST_FRAMEWORK = {
     'DEFAULT_THROTTLE_RATES': {
         'anon': '100000/day',
         'user': '100000/day',
-        'comentario-create':'100000/day',
-        'comentario-list':'100000/day',
-        'comentario-detail':'100000/day',
+        'comentario-create': '200000/day',
+        'comentario-list': '8000000/day',
+        'comentario-detail' : '300000/day',
     },
-    
-    'DEFAULT_RENDERER_CLASSES': (
-        'rest_framework.renderers.JSONRenderer',
-    )
-    
     #'DEFAULT_PAGINATION_CLASS':'rest_framework.pagination.LimitOffsetPagination',
     #'PAGE_SIZE':1,
-        
-}
- 
-SIMPLE_JWT= {
-    'ROTATE_REFRESH_TOKENS':True,
-    'ACCESS_TOKEN_LIFETIME':timedelta(days=365),
-    'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
 }
 
-try:
-    from .local_settings import DATABASES, DEBUG
-except ImportError as e:
-    print('Error:', e.msg)
+SIMPLE_JWT = {
+    'ROTATE_REFRESH_TOKENS': True,
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=365),
+    'REFRESH_TOKEN_LIFETIME': timedelta(days=365),
+}
