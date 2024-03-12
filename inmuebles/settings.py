@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from datetime import timedelta
+import dj_database_url
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -88,6 +89,8 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+DATABASES['default'] = dj_database_url.parse('postgres://django_rest_inmuebles_xo4e_user:SZbUZa3Abv5GI71eo5acaOpQ9dlbb0Va@dpg-cnod3vuct0pc73amfmjg-a.oregon-postgres.render.com/django_rest_inmuebles_xo4e')
 
 
 # Password validation
