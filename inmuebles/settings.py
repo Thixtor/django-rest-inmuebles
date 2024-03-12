@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 from pathlib import Path
 from datetime import timedelta
 import dj_database_url
+import os
 
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -23,12 +24,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-wm@206z2*r*r_6hg3+$1t(yjqfqcp0*p3x(du*2bwie3assog9'
+SECRET_KEY = os.environ.get('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DEBUG', False).lower() == 'True'
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS').split(' ')
+
 
 
 # Application definition
@@ -90,7 +93,8 @@ DATABASES = {
     }
 }
 
-DATABASES['default'] = dj_database_url.parse('postgres://django_rest_inmuebles_xo4e_user:SZbUZa3Abv5GI71eo5acaOpQ9dlbb0Va@dpg-cnod3vuct0pc73amfmjg-a.oregon-postgres.render.com/django_rest_inmuebles_xo4e')
+database_url = os.environ.get('DATABASES_URL')
+DATABASES['default'] = dj_database_url.parse(database_url)
 
 
 # Password validation
