@@ -100,7 +100,7 @@ DATABASES = {
         'USER':'django_rest_inmuebles_xo4e_user',
         'NAME':'django_rest_inmuebles_xo4e',
         'PASSWORD':'SZbUZa3Abv5GI71eo5acaOpQ9dlbb0Va',
-        'HOST':'postgres://django_rest_inmuebles_xo4e_user:SZbUZa3Abv5GI71eo5acaOpQ9dlbb0Va@dpg-cnod3vuct0pc73amfmjg-a.oregon-postgres.render.com/django_rest_inmuebles_xo4e',
+        'HOST':'dpg-cnod3vuct0pc73amfmjg-a.oregon-postgres.render.com',
     }
 }
 
@@ -153,7 +153,7 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-# REST_FRAMEWORK = {
+# REST_FRAMEWORK = { 
 #     'DEFAULT_PERMISSION_CLASSES': [
 #         'rest_framework.permissions.IsAuthenticated',
 #     ],
